@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "facd12f4-065c-41bc-884f-3a25d40f6508": {
+      "ProjectGuid": "facd12f4-065c-41bc-884f-3a25d40f6508",
+      "DisplayName": "ApiAsp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
