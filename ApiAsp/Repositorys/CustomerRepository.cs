@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ApiAsp.Models.Entitys;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiAsp.Repositorys
 {
@@ -14,28 +14,84 @@ namespace ApiAsp.Repositorys
         //public CustomerRepository(NorthwindContext context) { 
         //        _context = context;
         //}
+        private readonly DB.Models.NorthwindContext constext;
+        public CustomerRepository() {
+            constext = new DB.Models.NorthwindContext();
+        }
+      
 
-        public List<ApiAsp.DB.Models.Customer> AllCutomer()
+        public List<Customer> AllCutomer()
         {
-            List<ApiAsp.DB.Models.Customer> customer;
+            List<Customer> customers = new List<Customer>();
             using (var context =  new ApiAsp.DB.Models.NorthwindContext()){
-                customer = context.Customers.ToList();
-                
-                }
-
-                return customer;
+                var all = context.Customers.Select(c => new Customer
+                {
+                    CustomerId = c.CustomerId,
+                    CompanyName = c.CompanyName,
+                    ContactName = c.ContactName,
+                    ContactTitle = c.ContactTitle,
+                    Address = c.Address,
+                    City = c.City,
+                    Region = c.Region,
+                    Country = c.Country,
+                    Phone = c.Phone,
+                    Fax = c.Fax,
+                    PostalCode = c.PostalCode,
+                });
+                customers.AddRange(all);
+            }
+            return customers;
         }
 
 
-        public async Task<ApiAsp.DB.Models.Customer> GetFind(string id)
+        public async Task<Customer> GetFind(string id)
         {
-            ApiAsp.DB.Models.Customer customer;
+            Customer customer =  new Customer();
             using (var context = new ApiAsp.DB.Models.NorthwindContext())
             {
-                customer = context.Customers.Find(id);
+                var find = context.Customers.Find(id);
+                if(find != null)
+                {
+                    customer = new Customer
+                    {
+                        CustomerId = find.CustomerId,
+                        CompanyName = find.CompanyName,
+                        ContactName = find.ContactName,
+                        ContactTitle = find.ContactTitle,
+                        Address = find.Address,
+                        City = find.City,
+                        Region = find.Region,
+                        Country = find.Country,
+                        Phone = find.Phone,
+                        Fax = find.Fax,
+                        PostalCode = find.PostalCode,
+                    };
+                }
+                
             }
 
             return await Task.FromResult(customer);
+        }
+
+        public async Task<bool> CreateCustomer(Customer customer)
+        {
+            DB.Models.Customer customerAdd = new DB.Models.Customer
+            {
+                CustomerId = customer.CustomerId,
+                CompanyName = customer.CompanyName,
+                ContactName = customer.ContactName,
+                ContactTitle = customer.ContactTitle,
+                Address = customer.Address,
+                City = customer.City,
+                Region = customer.Region,
+                Country = customer.Country,
+                Phone = customer.Phone,
+                Fax = customer.Fax,
+                PostalCode = customer.PostalCode,
+            };
+            var add =  await constext.Customers.AddAsync(customerAdd);
+            constext.SaveChanges();
+            return add.State == EntityState.Added || add.State == EntityState.Modified;
         }
 
     }

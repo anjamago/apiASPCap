@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ApiAsp.DB.Models;
 
 
 namespace ApiAsp
@@ -34,9 +35,9 @@ namespace ApiAsp
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiAsp", Version = "v1" });
             });
-
-            services.AddDbContext<ApiAsp.DB.Models.NorthwindContext>(
-                option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            var DefaultConnection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<NorthwindContext>(
+                option => option.UseSqlServer(DefaultConnection)
             );
         }
 

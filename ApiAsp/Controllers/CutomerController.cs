@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ApiAsp.Controllers
@@ -18,6 +19,11 @@ namespace ApiAsp.Controllers
         public IActionResult Index()
         {
             var data = Services.AllCutomer();
+            if(data.Status == (int)HttpStatusCode.InternalServerError)
+            {
+                return BadRequest(data);
+            }
+
             return Ok(data);
         }
 
@@ -26,6 +32,30 @@ namespace ApiAsp.Controllers
         {
             var data = await Services.Find(id);
             return Ok(data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create( ApiAsp.Models.Entitys.Customer customer )
+        {
+            var response =  await Services.CreateCustomer(customer);
+            if(response.Status == (int)HttpStatusCode.InternalServerError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update()
+        {
+            return Ok("");
+        }
+
+        // Metodo que  me permite elimiar un registro
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
+        {
+            return Ok("");
         }
     }
 }

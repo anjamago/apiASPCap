@@ -57,3 +57,4 @@ C:\Users\amartinez\Documents\Desarrollo\BACK\Cap\ApiAsp\ApiAsp\obj\Debug\net5.0\
 C:\Users\amartinez\Documents\Desarrollo\BACK\Cap\ApiAsp\ApiAsp\obj\Debug\net5.0\ref\ApiAsp.dll
 C:\Users\amartinez\Documents\Desarrollo\BACK\Cap\ApiAsp\ApiAsp\obj\Debug\net5.0\ApiAsp.pdb
 C:\Users\amartinez\Documents\Desarrollo\BACK\Cap\ApiAsp\ApiAsp\obj\Debug\net5.0\ApiAsp.genruntimeconfig.cache
+C:\Users\amartinez\Documents\Desarrollo\BACK\Cap\ApiAsp\ApiAsp\obj\Debug\net5.0\ApiAsp.csproj.AssemblyReference.cache
