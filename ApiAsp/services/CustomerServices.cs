@@ -103,5 +103,86 @@ namespace ApiAsp.services
             }
         }
 
+        public async Task<Response<Customer>> UpdateCustomer (Customer customer)
+        {
+
+            try
+            {
+                if (customer != null && customer?.CustomerId != null)
+                {
+                    var findCustomer = await Repositorys.GetFind(customer.CustomerId);
+                    if (string.IsNullOrEmpty(findCustomer.CustomerId))
+                    {
+                        return new Response<Customer>(
+                            count: 0,
+                            status: System.Net.HttpStatusCode.NotFound,
+                            message: " Nose encontro el registro",
+                            data: null
+                        );
+                    }
+
+                    await Repositorys.UpdateCustomer(customer);
+
+                    return new Response<Customer>(
+                         count: 1,
+                          message: "Cliente actualizado ",
+                          data: null
+                    );
+
+                }
+
+                return new Response<Customer>(
+                        count: 0,
+                         message: "Nose encontro el registro ",
+                         data: null
+                   );
+            }
+            catch (Exception ex) {
+                return new Response<Customer>(
+                          count: 0,
+                           message: "Algo a ocurrido Error en el servidor ",
+                           data: null,
+                           status: System.Net.HttpStatusCode.InternalServerError
+                     );
+            }
+
+        }
+
+        public async Task<Response<bool>> DeleteCustomer(string id)
+        {
+            try
+            {
+                 var customer = await Repositorys.GetFind(id);
+                if (string.IsNullOrEmpty(customer.CustomerId))
+                {
+                    return new Response<bool>(
+                           count: 0,
+                           status: System.Net.HttpStatusCode.NotFound,
+                           message: " Nose encontro el registro",
+                           data: false
+                       );
+                }
+
+                await Repositorys.DeleteCustomer(id);
+
+                return new Response<bool>(
+                            count: 0,
+                            message: " Usuario Eliminado",
+                            data: true
+                        );
+            }
+            catch (Exception ex) {
+
+                return new Response<bool>(
+                       count: 0,
+                        message: ex.Message,
+                        data: false,
+                        status: System.Net.HttpStatusCode.InternalServerError
+                  );
+            }
+
+        }
+
+
     }
 }

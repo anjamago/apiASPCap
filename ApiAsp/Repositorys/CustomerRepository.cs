@@ -89,9 +89,41 @@ namespace ApiAsp.Repositorys
                 Fax = customer.Fax,
                 PostalCode = customer.PostalCode,
             };
-            var add =  await constext.Customers.AddAsync(customerAdd);
+            var add = await constext.Customers.AddAsync(customerAdd);
             constext.SaveChanges();
             return add.State == EntityState.Added || add.State == EntityState.Modified;
+        }
+
+        public async Task  UpdateCustomer(Customer customer)
+        {
+            DB.Models.Customer register = new DB.Models.Customer
+            {
+                CustomerId = customer.CustomerId,
+                CompanyName = customer.CompanyName,
+                ContactName = customer.ContactName,
+                ContactTitle = customer.ContactTitle,
+                Address = customer.Address,
+                City = customer.City,
+                Region = customer.Region,
+                Country = customer.Country,
+                Phone = customer.Phone,
+                Fax = customer.Fax,
+                PostalCode = customer.PostalCode,
+            };
+
+            constext.Entry(register).State = EntityState.Modified;
+            await constext.SaveChangesAsync();
+        }
+
+        public async Task DeleteCustomer(string customerId)
+        {
+            DB.Models.Customer customer = new DB.Models.Customer
+            {
+                CustomerId = customerId,
+            };
+
+            constext.Remove(customer);
+            await constext.SaveChangesAsync();
         }
 
     }

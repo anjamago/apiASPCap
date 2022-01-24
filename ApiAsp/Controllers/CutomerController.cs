@@ -46,16 +46,26 @@ namespace ApiAsp.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(ApiAsp.Models.Entitys.Customer customer)
         {
-            return Ok("");
+            var response = await Services.UpdateCustomer(customer);
+            if (response.Status == (int)HttpStatusCode.InternalServerError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
 
         // Metodo que  me permite elimiar un registro
         [HttpDelete]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete(string id)
         {
-            return Ok("");
+            var response = await Services.DeleteCustomer(id);
+            if (response.Status == (int)HttpStatusCode.InternalServerError)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
     }
 }
