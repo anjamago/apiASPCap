@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "M+bSRvbxQKz5xNw/GYIRmbHPjtBazbk/CjpYVdOz7gaPIaP3eQ4gsSuyfYXD+Snr0J4cKi4pSanOqQsmTk2dGw==",
+  "dgSpecHash": "zDKt6iZvZAltI9b0fyYWLygJAi7yMDae60j97AgD37Ef9NH6bb3nevQf5WX98OviIw/WrqmYleSWL03o8UMqVA==",
   "success": true,
   "projectFilePath": "C:\\Users\\amartinez\\Documents\\Desarrollo\\BACK\\Cap\\ApiAsp\\ApiAsp\\ApiAsp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\amartinez\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
     "C:\\Users\\amartinez\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\amartinez\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\amartinez\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

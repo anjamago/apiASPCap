@@ -4,6 +4,8 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ApiAsp.Models.Response;
+using ApiAsp.services.Validations;
+using FluentValidation.Results;
 
 namespace ApiAsp.services
 {
@@ -11,9 +13,10 @@ namespace ApiAsp.services
     {
 
         private readonly  CustomerRepository  Repositorys;
-            
+        private readonly CustomerValidator customerValidator;
         public CustomerServices() { 
             Repositorys = new CustomerRepository();
+            customerValidator = new  CustomerValidator();
         }
 
         public Response<List<Customer>> AllCutomer()
@@ -108,7 +111,8 @@ namespace ApiAsp.services
 
             try
             {
-                if (customer != null && customer?.CustomerId != null)
+                ValidationResult valid = customerValidator.Validate(customer);
+                if (valid.IsValid)
                 {
                     var findCustomer = await Repositorys.GetFind(customer.CustomerId);
                     if (string.IsNullOrEmpty(findCustomer.CustomerId))
@@ -134,10 +138,11 @@ namespace ApiAsp.services
                 return new Response<Customer>(
                         count: 0,
                          message: "Nose encontro el registro ",
-                         data: null
+                         data: null,
+                         errors: valid.Errors
                    );
             }
-            catch (Exception ex) {
+            catch  {
                 return new Response<Customer>(
                           count: 0,
                            message: "Algo a ocurrido Error en el servidor ",

@@ -1,4 +1,6 @@
-﻿namespace ApiAsp.Models.Entitys
+﻿using System.Collections.Generic;
+
+namespace ApiAsp.Models.Entitys
 {
     public class Customer
     {
@@ -13,5 +15,7 @@
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
+
+        public List<OrderModel>? Order { get; set; }
     }
 }
